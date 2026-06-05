@@ -64,3 +64,16 @@ The scraper reads product data from each tile without scrolling: loaded tiles us
 1. Open the Lidl listing, scroll to the bottom, run [`BeerScraper/beer-scraper.js`](BeerScraper/beer-scraper.js) in DevTools.
 2. On [Untappd](https://untappd.com) while logged in, run [`UntappdResearcher/untappd-researcher.js`](UntappdResearcher/untappd-researcher.js).
 3. Run [`BeerDashboard/beer-dashboard-generator.js`](BeerDashboard/beer-dashboard-generator.js) to download the HTML dashboard.
+
+## Deploy dashboard (GitHub Pages)
+
+You can publish the static Beer Dashboard to GitHub Pages using the provided workflow.
+
+1. Commit and push these new files to the repository.
+2. In GitHub, open **Actions** → **Deploy Beer Dashboard** → **Run workflow**.
+3. Paste the full `untappd-beers.json` contents into the `json_content` input and run the workflow.
+4. When the workflow completes, open the repository **Pages** section (Settings → Pages) or the workflow summary to find the published URL.
+
+Notes:
+- The workflow writes the pasted JSON into `untappd-beers.json` and deploys the `BeerDashboard/` files as a static site to Pages.
+- If the JSON is very large, consider committing the file to the repo and using the file path instead; the workflow expects pasted JSON by default.

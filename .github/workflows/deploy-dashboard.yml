@@ -1,0 +1,41 @@
+name: Deploy Beer Dashboard
+
+on:
+  workflow_dispatch:
+    inputs:
+      json_content:
+        description: 'Paste full untappd beers JSON (multiline)'
+        required: true
+        default: ''
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Prepare site directory
+        run: |
+          mkdir -p site
+          cp -R BeerDashboard/* site/
+
+      - name: Write JSON to site/untappd-beers.json
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const content = (github.context.payload && github.context.payload.inputs && github.context.payload.inputs.json_content) ? github.context.payload.inputs.json_content : '';
+            fs.writeFileSync('site/untappd-beers.json', content, 'utf8');
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: site
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v1
