@@ -9,11 +9,18 @@ Requires [Node.js](https://nodejs.org/) 20+.
 ```bash
 npm install
 npx playwright install chromium
-npm run scrape -- --url "https://www.lidl.pl/..." --out beers.json
+npm run scrape -- --url "https://www.lidl.pl/..." [--out beers.json]
 ```
 
-Output JSON shape:
+### Parameters
 
+- `--url` (required): Lidl product listing URL (craft beers page for the month)
+- `--out` (optional): Output JSON path (default: `beers.json`)
+- `--debug-info` (optional): When present, write a debug raw-data file alongside the main output (named `<out>-raw-data.json`).
+
+### Output files
+
+**Main output** (`beers.json`):
 ```json
 {
   "url": "...",
@@ -25,7 +32,19 @@ Output JSON shape:
 }
 ```
 
-The scraper scrolls the listing until the product tile count stabilizes (same as scrolling manually in the browser).
+**Debug log** (`beers-raw-data.json`): Contains raw product data from both tile sources for inspection and debugging:
+```json
+[
+  {
+    "title": "Product Name",
+    "productId": 12345678,
+    "source": "placeholder",
+    "rawData": { ... }
+  }
+]
+```
+
+The scraper reads product data from each tile without scrolling: loaded tiles use `data-gridbox-impression`, placeholders use `data-grid-data` (full catalog is present in the page HTML). It operates in HTML-only mode for performance and falls back to JavaScript if needed.
 
 ### GitHub Actions
 
