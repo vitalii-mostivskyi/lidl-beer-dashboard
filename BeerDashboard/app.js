@@ -1,14 +1,18 @@
 (async function () {
     async function loadBeers() {
-        try {
-            const resp = await fetch('./untappd-beers.json');
-            if (!resp.ok) throw new Error('Fetch failed');
-            const data = await resp.json();
-            return Array.isArray(data) ? data : (data.beers || data);
-        } catch (err) {
-            console.error('Failed to load untappd-beers.json', err);
-            return [];
+        const paths = ['./untappd-beers.json', '../untappd-beers.json', '/untappd-beers.json', 'untappd-beers.json', 'site/untappd-beers.json'];
+        for (const p of paths) {
+            try {
+                const resp = await fetch(p);
+                if (!resp.ok) continue;
+                const data = await resp.json();
+                return Array.isArray(data) ? data : (data.beers || data);
+            } catch (err) {
+                // try next path
+            }
         }
+        console.error('Failed to load untappd-beers.json from any known path');
+        return [];
     }
 
     const beers = await loadBeers();
