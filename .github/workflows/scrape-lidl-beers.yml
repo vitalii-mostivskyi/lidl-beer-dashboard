@@ -1,0 +1,35 @@
+name: Scrape Lidl beers
+
+on:
+  workflow_dispatch:
+    inputs:
+      lidl_url:
+        description: Lidl product listing URL
+        required: true
+        type: string
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Scrape Lidl listing
+        run: npm run scrape -- --url "${{ inputs.lidl_url }}" --out beers.json
+
+      - name: Upload beers JSON
+        uses: actions/upload-artifact@v4
+        with:
+          name: lidl-beers-${{ github.run_number }}
+          path: beers.json
+          retention-days: 90

@@ -1,0 +1,14 @@
+{
+  "name": "lidl-beer-dashboard",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "scrape": "node BeerScraper/scrape-lidl.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "playwright": "^1.52.0"
+  }
+}

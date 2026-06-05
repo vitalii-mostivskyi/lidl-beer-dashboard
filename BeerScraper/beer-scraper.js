@@ -1,5 +1,7 @@
 /**
  * Lidl Beer Scraper (v4 - Optimized)
+ * Browser console fallback — scroll the listing to the bottom first, then paste and run.
+ * Automated CLI: npm run scrape -- --url "<LIDL_LISTING_URL>" (see ../README.md)
  * Returns JSON with Name, Brewery, Packaging (Bottle/Can), Price, and URL.
  */
 (() => {
