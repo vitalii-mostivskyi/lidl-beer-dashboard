@@ -25,12 +25,10 @@ jobs:
           cp -R BeerDashboard/* site/
 
       - name: Write JSON to site/untappd-beers.json
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const fs = require('fs');
-            const content = (github.context.payload && github.context.payload.inputs && github.context.payload.inputs.json_content) ? github.context.payload.inputs.json_content : '';
-            fs.writeFileSync('site/untappd-beers.json', content, 'utf8');
+        shell: bash
+        run: |
+          mkdir -p site
+          printf '%s' "${{ github.event.inputs.json_content }}" > site/untappd-beers.json
 
       - name: Deploy to GitHub Pages via gh-pages branch
         uses: peaceiris/actions-gh-pages@v4
