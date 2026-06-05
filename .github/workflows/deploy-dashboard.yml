@@ -32,10 +32,8 @@ jobs:
             const content = (github.context.payload && github.context.payload.inputs && github.context.payload.inputs.json_content) ? github.context.payload.inputs.json_content : '';
             fs.writeFileSync('site/untappd-beers.json', content, 'utf8');
 
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v1
+      - name: Deploy to GitHub Pages via gh-pages branch
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: site
-
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v1
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
