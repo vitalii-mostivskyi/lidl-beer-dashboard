@@ -208,13 +208,16 @@ async function main() {
       await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60_000 });
       await page.waitForSelector(`${LOADED_SELECTOR}, ${PLACEHOLDER_SELECTOR}`, { timeout: 60_000 });
 
-      // Auto-scroll to trigger lazy-loading of tiles until stable
+      // Auto-scroll using incremental wheel events to trigger lazy-loading of tiles until stable
       let prevLoaded = -1;
       let stable = 0;
-      const maxIter = 40;
+      const maxIter = 60;
+      const step = 800;
+      // Start from the top to ensure consistent behavior
+      await page.evaluate(() => window.scrollTo(0, 0));
       for (let i = 0; i < maxIter; i++) {
-        await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-        await page.waitForTimeout(500);
+        await page.mouse.wheel(0, step);
+        await page.waitForTimeout(300);
         const loadedCount = await page.locator(LOADED_SELECTOR).count();
         if (loadedCount === prevLoaded) {
           stable++;
@@ -222,7 +225,7 @@ async function main() {
           stable = 0;
           prevLoaded = loadedCount;
         }
-        if (stable >= 3) break;
+        if (stable >= 4) break;
       }
 
       const title = await page.title();
