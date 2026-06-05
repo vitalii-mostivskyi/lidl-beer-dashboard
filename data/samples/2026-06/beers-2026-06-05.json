@@ -1,0 +1,252 @@
+{
+  "url": "https://www.lidl.pl/c/piwa-kraftowe/a10072919",
+  "scrapedAt": "2026-06-05T11:44:03.558Z",
+  "totalCount": 35,
+  "beers": [
+    {
+      "Name": "Boarding: Maldives",
+      "Brewery": "Funky Fluid",
+      "Packaging": "Can",
+      "Price": 11.99,
+      "URL": "https://www.lidl.pl/p/funky-fluid-boarding-maldives/p10034801"
+    },
+    {
+      "Name": "Boarding: Paris",
+      "Brewery": "Funky Fluid",
+      "Packaging": "Can",
+      "Price": 11.99,
+      "URL": "https://www.lidl.pl/p/funky-fluid-boarding-paris/p10034803"
+    },
+    {
+      "Name": "Boarding: Bangkok",
+      "Brewery": "Funky Fluid",
+      "Packaging": "Can",
+      "Price": 11.99,
+      "URL": "https://www.lidl.pl/p/funky-fluid-boarding-bangkok/p10034804"
+    },
+    {
+      "Name": "Gelato: Pink Guava Mango Sticky Rice",
+      "Brewery": "Funky Fluid",
+      "Packaging": "Unknown",
+      "Price": 11.99,
+      "URL": "https://www.lidl.pl/p/funky-fluid-gelato-pink-guava-mango-sticky-rice/p10034805"
+    },
+    {
+      "Name": "Farm to Glass '26: Citra",
+      "Brewery": "Funky Fluid",
+      "Packaging": "Can",
+      "Price": 10.99,
+      "URL": "https://www.lidl.pl/p/funky-fluid-farm-to-glass-26-citra/p10034806"
+    },
+    {
+      "Name": "Farm to Glass '26: Mosaic",
+      "Brewery": "Funky Fluid",
+      "Packaging": "Can",
+      "Price": 10.99,
+      "URL": "https://www.lidl.pl/p/funky-fluid-farm-to-glass-26-mosaic/p10034807"
+    },
+    {
+      "Name": "Farm to Glass '26: Simcoe",
+      "Brewery": "Funky Fluid",
+      "Packaging": "Can",
+      "Price": 10.99,
+      "URL": "https://www.lidl.pl/p/funky-fluid-farm-to-glass-26-simcoe/p10034808"
+    },
+    {
+      "Name": "Gelato: Purple Fluff",
+      "Brewery": "Funky Fluid",
+      "Packaging": "Can",
+      "Price": 10.99,
+      "URL": "https://www.lidl.pl/p/funky-fluid-gelato-purple-fluff/p10034809"
+    },
+    {
+      "Name": "Mochi Green Kiwi, Banana & Mochi",
+      "Brewery": "Magic Road",
+      "Packaging": "Can",
+      "Price": 10.99,
+      "URL": "https://www.lidl.pl/p/magic-road-mochi-green-kiwi-banana-mochi/p10034810"
+    },
+    {
+      "Name": "Always Remember",
+      "Brewery": "Magic Road",
+      "Packaging": "Can",
+      "Price": 10.99,
+      "URL": "https://www.lidl.pl/p/magic-road-always-remember/p10034811"
+    },
+    {
+      "Name": "Włoskie Wakacje",
+      "Brewery": "Zakładowy",
+      "Packaging": "Bottle",
+      "Price": 9.99,
+      "URL": "https://www.lidl.pl/p/zakladowy-wloskie-wakacje/p10034812"
+    },
+    {
+      "Name": "Wyjąć Grilla To Jest Chwila",
+      "Brewery": "Zakładowy",
+      "Packaging": "Unknown",
+      "Price": 9.99,
+      "URL": "https://www.lidl.pl/p/zakladowy-wyjac-grilla-to-jest-chwila/p10034821"
+    },
+    {
+      "Name": "Punchline",
+      "Brewery": "Nepomucen",
+      "Packaging": "Can",
+      "Price": 9.99,
+      "URL": "https://www.lidl.pl/p/nepomucen-punchline/p10034813"
+    },
+    {
+      "Name": "Alpha Howl",
+      "Brewery": "Nepomucen",
+      "Packaging": "Can",
+      "Price": 9.99,
+      "URL": "https://www.lidl.pl/p/nepomucen-alpha-howl/p10034814"
+    },
+    {
+      "Name": "Sweet Morning - Smoothie Bowl",
+      "Brewery": "Nepomucen",
+      "Packaging": "Can",
+      "Price": 9.99,
+      "URL": "https://www.lidl.pl/p/nepomucen-sweet-morning-smoothie-bowl/p10034815"
+    },
+    {
+      "Name": "Spring Day",
+      "Brewery": "Nepomucen",
+      "Packaging": "Can",
+      "Price": 9.99,
+      "URL": "https://www.lidl.pl/p/nepomucen-spring-day/p10034816"
+    },
+    {
+      "Name": "The Nelson Region - New Zealand - Hops Around The World",
+      "Brewery": "Nepomucen",
+      "Packaging": "Can",
+      "Price": 9.99,
+      "URL": "https://www.lidl.pl/p/nepomucen-the-nelson-region-new-zealand-hops-around-the-world/p10034817"
+    },
+    {
+      "Name": "South Africa - Hops Around The World",
+      "Brewery": "Nepomucen",
+      "Packaging": "Can",
+      "Price": 9.99,
+      "URL": "https://www.lidl.pl/p/nepomucen-south-africa-hops-around-the-world/p10034818"
+    },
+    {
+      "Name": "Bark & Brew",
+      "Brewery": "Stu Mostów",
+      "Packaging": "Bottle",
+      "Price": 9.99,
+      "URL": "https://www.lidl.pl/p/stu-mostow-bark-brew/p10034819"
+    },
+    {
+      "Name": "Berry Up!",
+      "Brewery": "Stu Mostów",
+      "Packaging": "Bottle",
+      "Price": 9.99,
+      "URL": "https://www.lidl.pl/p/stu-mostow-berry-up/p10034820"
+    },
+    {
+      "Name": "Taproom Session West Coast IPA",
+      "Brewery": "Browar PINTA",
+      "Packaging": "Bottle",
+      "Price": 9.99,
+      "URL": "https://www.lidl.pl/p/browar-pinta-taproom-session-west-coast-ipa/p10034822"
+    },
+    {
+      "Name": "Taproom Foggy IPA",
+      "Brewery": "Browar PINTA",
+      "Packaging": "Bottle",
+      "Price": 9.99,
+      "URL": "https://www.lidl.pl/p/browar-pinta-taproom-foggy-ipa/p10034823"
+    },
+    {
+      "Name": "Taproom NZ Bright IPA",
+      "Brewery": "Browar PINTA",
+      "Packaging": "Unknown",
+      "Price": 9.99,
+      "URL": "https://www.lidl.pl/p/browar-pinta-taproom-nz-bright-ipa/p10034824"
+    },
+    {
+      "Name": "Classic Witbier",
+      "Brewery": "Browar PINTA",
+      "Packaging": "Bottle",
+      "Price": 9.99,
+      "URL": "https://www.lidl.pl/p/browar-pinta-classic-witbier/p10034825"
+    },
+    {
+      "Name": "Kalambury",
+      "Brewery": "Artezan",
+      "Packaging": "Can",
+      "Price": 9.99,
+      "URL": "https://www.lidl.pl/p/artezan-kalambury/p10034826"
+    },
+    {
+      "Name": "Jeździć, Obserwować",
+      "Brewery": "Artezan",
+      "Packaging": "Can",
+      "Price": 9.99,
+      "URL": "https://www.lidl.pl/p/artezan-jezdzic-obserwowac/p10034827"
+    },
+    {
+      "Name": "Po godzinach Citrus IPA",
+      "Brewery": "Amber",
+      "Packaging": "Bottle",
+      "Price": 6.99,
+      "URL": "https://www.lidl.pl/p/amber-po-godzinach-citrus-ipa/p10034828"
+    },
+    {
+      "Name": "Po godzinach Single Hop",
+      "Brewery": "Amber",
+      "Packaging": "Bottle",
+      "Price": 6.99,
+      "URL": "https://www.lidl.pl/p/amber-po-godzinach-single-hop/p10034829"
+    },
+    {
+      "Name": "Dirty Peach DRS",
+      "Brewery": "Piwne Podziemie",
+      "Packaging": "Can",
+      "Price": 9.99,
+      "URL": "https://www.lidl.pl/p/piwne-podziemie-dirty-peach-drs/p10034830"
+    },
+    {
+      "Name": "Ronin’s Journey DRS",
+      "Brewery": "Piwne Podziemie",
+      "Packaging": "Can",
+      "Price": 9.99,
+      "URL": "https://www.lidl.pl/p/piwne-podziemie-ronin-s-journey-drs/p10034831"
+    },
+    {
+      "Name": "Poza Szlakiem - Session Ipa Trawa Cytrynowa",
+      "Brewery": "Maryensztadt",
+      "Packaging": "Bottle",
+      "Price": 7.99,
+      "URL": "https://www.lidl.pl/p/maryensztadt-poza-szlakiem-session-ipa-trawa-cytrynowa/p10034832"
+    },
+    {
+      "Name": "Summertime -  Papaja, Mango & Brzoskiwnia",
+      "Brewery": "Maryensztadt",
+      "Packaging": "Bottle",
+      "Price": 7.99,
+      "URL": "https://www.lidl.pl/p/maryensztadt-summertime-papaja-mango-brzoskiwnia/p10034833"
+    },
+    {
+      "Name": "Ogród Mistrza",
+      "Brewery": "Gościszewo",
+      "Packaging": "Bottle",
+      "Price": 6.99,
+      "URL": "https://www.lidl.pl/p/gosciszewo-ogrod-mistrza/p10034834"
+    },
+    {
+      "Name": "Pan IPAni BezalkØ",
+      "Brewery": "Trzech Kumpli",
+      "Packaging": "Can",
+      "Price": 8.99,
+      "URL": "https://www.lidl.pl/p/trzech-kumpli-pan-ipani-bezalko/p10034835"
+    },
+    {
+      "Name": "Citrus APA BezalkØ.Ø",
+      "Brewery": "Trzech Kumpli",
+      "Packaging": "Can",
+      "Price": 8.99,
+      "URL": "https://www.lidl.pl/p/trzech-kumpli-citrus-apa-bezalko-o/p10034836"
+    }
+  ]
+}
