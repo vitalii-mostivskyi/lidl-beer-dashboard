@@ -15,8 +15,14 @@ npm run scrape -- --url "https://www.lidl.pl/..." [--out beers.json]
 ### Parameters
 
 - `--url` (required): Lidl product listing URL (craft beers page for the month)
-- `--out` (optional): Output JSON path (default: `beers.json`)
+- `--out` (optional): Output JSON path (default: `data/output/beers-YYYY-MM-DD_HHMMSS.json` if omitted)
 - `--debug-info` (optional): When present, write a debug raw-data file alongside the main output (named `<out>-raw-data.json`).
+- `--load-tiles` (optional): Force JS-enabled mode and capture loaded tiles (useful for testing the loaded-tile parsing path).
+- `--save-sample-data` (optional): Save the final page HTML snapshot and the extracted `beers.json` into `data/samples/YYYY-MM/` (filenames: `page-YYYY-MM-DD(.loaded).html` and `beers.json`).
+
+Default output path:
+
+If you omit `--out`, the scraper writes results to `data/output/beers-YYYY-MM-DD_HHMMSS.json` by default. Use `--out` to override.
 
 ### Output files
 

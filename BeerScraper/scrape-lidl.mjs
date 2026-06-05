@@ -1,4 +1,4 @@
-import { writeFile } from 'node:fs/promises';
+import { writeFile, mkdir } from 'node:fs/promises';
 import { chromium } from 'playwright';
 
 const LOADED_SELECTOR = '[data-gridbox-impression]';
@@ -7,8 +7,10 @@ const BASE_URL = 'https://www.lidl.pl';
 
 function parseArgs(argv) {
   let url;
-  let out = 'beers.json';
+  let out;
   let debugInfo = false;
+  let loadTiles = false;
+  let saveSampleData = false;
 
   for (let i = 0; i < argv.length; i++) {
     const arg = argv[i];
@@ -18,6 +20,10 @@ function parseArgs(argv) {
       out = argv[++i];
     } else if (arg === '--debug-info' || arg === '--debug') {
       debugInfo = true;
+    } else if (arg === '--load-tiles') {
+      loadTiles = true;
+    } else if (arg === '--save-sample-data') {
+      saveSampleData = true;
     } else if (arg === '--help' || arg === '-h') {
       printUsage();
       process.exit(0);
@@ -30,7 +36,7 @@ function parseArgs(argv) {
     process.exit(1);
   }
 
-  return { url, out, debugInfo };
+  return { url, out, debugInfo, loadTiles, saveSampleData };
 }
 
 function printUsage() {
@@ -40,6 +46,8 @@ Options:
   --url   Lidl product listing URL (required)
   --out   Output JSON path (default: beers.json)
   --debug-info  Write raw product payloads to <out>-raw-data.json for debugging
+  --load-tiles  Force JS-enabled mode and capture loaded tiles (writes .loaded.html sample)
+  --save-html-snapshot  Save final page HTML to 'data/samples/YYYY-MM/page-YYYY-MM-DD(.loaded).html'
 `);
 }
 
@@ -173,51 +181,100 @@ async function extractBeers(page) {
 }
 
 async function main() {
-  const { url, out, debugInfo } = parseArgs(process.argv.slice(2));
+  const { url, out: outArg, debugInfo, loadTiles, saveSampleData } = parseArgs(process.argv.slice(2));
+
+  // Ensure default output path when --out not provided: data/output/beers-YYYYMMDD_HHMMSS.json
+  let out = outArg;
+  if (!out) {
+    const now = new Date();
+    const pad = (n) => String(n).padStart(2, '0');
+    const fname = `beers-${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}_${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}.json`;
+    out = `data/output/${fname}`;
+    await mkdir('data/output', { recursive: true });
+  }
 
   const browser = await chromium.launch({ headless: true });
-  let context = await browser.newContext({
-    viewport: { width: 900, height: 720 },
-    javaScriptEnabled: false,
-  });
-  let page = await context.newPage();
+  let context;
+  let page;
 
   try {
-    console.log(`Opening: ${url} with HTML-only mode`);
-    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60_000 });
-    await page.waitForSelector(`${LOADED_SELECTOR}, ${PLACEHOLDER_SELECTOR}`, {
-      timeout: 60_000,
-    });
-
-    let title = await page.title();
-    let loadedCount = await page.locator(LOADED_SELECTOR).count();
-    let placeholderCount = await page.locator(PLACEHOLDER_SELECTOR).count();
-    console.log(`Page title: ${title}`);
-    console.log(`Loaded tiles: ${loadedCount}, placeholder tiles: ${placeholderCount}`);
-
-    if (placeholderCount === 0 && loadedCount > 0) {
-      console.log('No placeholder tiles found in HTML-only mode; retrying with JS-enabled mode.');
-      await context.close();
-
+    if (loadTiles) {
       context = await browser.newContext({
         viewport: { width: 900, height: 720 },
         javaScriptEnabled: true,
       });
       page = await context.newPage();
+      console.log(`Opening: ${url} with JS-enabled mode (load tiles forced)`);
+      await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60_000 });
+      await page.waitForSelector(`${LOADED_SELECTOR}, ${PLACEHOLDER_SELECTOR}`, { timeout: 60_000 });
 
+      // Auto-scroll to trigger lazy-loading of tiles until stable
+      let prevLoaded = -1;
+      let stable = 0;
+      const maxIter = 40;
+      for (let i = 0; i < maxIter; i++) {
+        await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+        await page.waitForTimeout(500);
+        const loadedCount = await page.locator(LOADED_SELECTOR).count();
+        if (loadedCount === prevLoaded) {
+          stable++;
+        } else {
+          stable = 0;
+          prevLoaded = loadedCount;
+        }
+        if (stable >= 3) break;
+      }
+
+      const title = await page.title();
+      const loadedCount = await page.locator(LOADED_SELECTOR).count();
+      const placeholderCount = await page.locator(PLACEHOLDER_SELECTOR).count();
+      console.log(`Page title: ${title}`);
+      console.log(`Loaded tiles: ${loadedCount}, placeholder tiles: ${placeholderCount}`);
+    } else {
+      context = await browser.newContext({
+        viewport: { width: 900, height: 720 },
+        javaScriptEnabled: false,
+      });
+      page = await context.newPage();
+
+      console.log(`Opening: ${url} with HTML-only mode`);
       await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60_000 });
       await page.waitForSelector(`${LOADED_SELECTOR}, ${PLACEHOLDER_SELECTOR}`, {
         timeout: 60_000,
       });
 
-      title = await page.title();
-      loadedCount = await page.locator(LOADED_SELECTOR).count();
-      placeholderCount = await page.locator(PLACEHOLDER_SELECTOR).count();
-      console.log(`Fallback page title: ${title}`);
-      console.log(`Fallback loaded tiles: ${loadedCount}, placeholder tiles: ${placeholderCount}`);
+      let title = await page.title();
+      let loadedCount = await page.locator(LOADED_SELECTOR).count();
+      let placeholderCount = await page.locator(PLACEHOLDER_SELECTOR).count();
+      console.log(`Page title: ${title}`);
+      console.log(`Loaded tiles: ${loadedCount}, placeholder tiles: ${placeholderCount}`);
+
+      if (placeholderCount === 0 && loadedCount > 0) {
+        console.log('No placeholder tiles found in HTML-only mode; retrying with JS-enabled mode.');
+        await context.close();
+
+        context = await browser.newContext({
+          viewport: { width: 900, height: 720 },
+          javaScriptEnabled: true,
+        });
+        page = await context.newPage();
+
+        await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60_000 });
+        await page.waitForSelector(`${LOADED_SELECTOR}, ${PLACEHOLDER_SELECTOR}`, {
+          timeout: 60_000,
+        });
+
+        title = await page.title();
+        loadedCount = await page.locator(LOADED_SELECTOR).count();
+        placeholderCount = await page.locator(PLACEHOLDER_SELECTOR).count();
+        console.log(`Fallback page title: ${title}`);
+        console.log(`Fallback loaded tiles: ${loadedCount}, placeholder tiles: ${placeholderCount}`);
+      }
     }
 
     const { beers, rawDataLog } = await extractBeers(page);
+
+    // Save result object (main output)
 
     const result = {
       url: page.url(),
@@ -228,6 +285,31 @@ async function main() {
 
     await writeFile(out, JSON.stringify(result, null, 2), 'utf8');
     console.log(`Wrote ${beers.length} beer(s) to ${out}`);
+
+    // Optionally save HTML snapshot and sample data (beers.json) to samples folder
+    if (saveSampleData) {
+      try {
+        const now = new Date();
+        const pad = (n) => String(n).padStart(2, '0');
+        const dir = `data/samples/${now.getFullYear()}-${pad(now.getMonth() + 1)}`;
+        await mkdir(dir, { recursive: true });
+        const year = now.getFullYear();
+        const month = pad(now.getMonth() + 1);
+        const day = pad(now.getDate());
+        const dateStr = `${year}-${month}-${day}`;
+        const base = `${dir}/page-${dateStr}`;
+        const filename = loadTiles ? `${base}.loaded.html` : `${base}.html`;
+        const html = await page.content();
+        await writeFile(filename, html, 'utf8');
+        // Save the extracted beers JSON into the samples folder with a matching date-based name
+        const sampleJsonPath = loadTiles ? `${dir}/beers-${dateStr}.loaded.json` : `${dir}/beers-${dateStr}.json`;
+        await writeFile(sampleJsonPath, JSON.stringify(result, null, 2), 'utf8');
+        console.log(`Saved HTML snapshot to ${filename}`);
+        console.log(`Saved sample data to ${sampleJsonPath}`);
+      } catch (err) {
+        console.warn('Failed to save sample data:', err.message);
+      }
+    }
 
     // Save raw data log for inspection (only when enabled)
     if (debugInfo) {
