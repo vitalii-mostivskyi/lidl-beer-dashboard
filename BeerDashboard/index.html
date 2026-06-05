@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Beer Dashboard</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Beer Dashboard</h1>
+            <div class="sub">Complete checklist with Untappd ratings</div>
+        </header>
+        <div class="summary-stats" id="statsBar"></div>
+
+        <div class="controls">
+            <div class="control-group">
+                <label>Search</label>
+                <input type="text" id="searchInput" placeholder="Beer or brand...">
+            </div>
+            <div class="control-group">
+                <label>Packaging</label>
+                <select id="typeFilter">
+                    <option value="all">All Types</option>
+                    <option value="Can">Cans</option>
+                    <option value="Bottle">Bottles</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label>Sort By</label>
+                <select id="sortOrder">
+                    <option value="rating">Highest Rating</option>
+                    <option value="name">Name</option>
+                </select>
+            </div>
+            <label class="checkbox-wrap"><input type="checkbox" id="hideDrunk"><span>Not drunk</span></label>
+        </div>
+
+        <div id="beerList"></div>
+    </div>
+    <script src="app.js" defer></script>
+</body>
+
+</html>
