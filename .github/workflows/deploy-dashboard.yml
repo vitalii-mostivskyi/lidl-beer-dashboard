@@ -17,14 +17,14 @@ jobs:
       - name: Prepare site directory
         run: |
           mkdir -p site
-          cp -R BeerDashboard/* site/
+          cp -R src/beer-dashboard/* site/
 
-      - name: Copy committed JSON from BeerDashboard folder
+      - name: Copy committed JSON from src/beer-dashboard folder
         run: |
-          if [ -f BeerDashboard/untappd-beers.json ]; then
-            cp BeerDashboard/untappd-beers.json site/untappd-beers.json
+          if [ -f src/beer-dashboard/untappd-beers.json ]; then
+            cp src/beer-dashboard/untappd-beers.json site/untappd-beers.json
           else
-            echo "ERROR: BeerDashboard/untappd-beers.json not found. Commit the file and re-run the workflow." >&2
+            echo "ERROR: src/beer-dashboard/untappd-beers.json not found. Commit the file and re-run the workflow." >&2
             exit 1
           fi
 

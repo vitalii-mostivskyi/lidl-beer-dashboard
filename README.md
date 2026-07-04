@@ -61,9 +61,9 @@ The scraper reads product data from each tile without scrolling: loaded tiles us
 
 ## Manual pipeline (browser console)
 
-1. Open the Lidl listing, scroll to the bottom, run [`BeerScraper/beer-scraper.js`](BeerScraper/beer-scraper.js) in DevTools.
-2. On [Untappd](https://untappd.com) while logged in, run [`UntappdResearcher/untappd-researcher.js`](UntappdResearcher/untappd-researcher.js).
-3. Run [`BeerDashboard/beer-dashboard-generator.js`](BeerDashboard/beer-dashboard-generator.js) to download the HTML dashboard.
+1. Open the Lidl listing, scroll to the bottom, run [`src/beer-scraper/beer-scraper.js`](src/beer-scraper/beer-scraper.js) in DevTools.
+2. On [Untappd](https://untappd.com) while logged in, run [`src/untappd-researcher/untappd-researcher.js`](src/untappd-researcher/untappd-researcher.js).
+3. Run [`src/beer-dashboard/beer-dashboard-generator.js`](src/beer-dashboard/beer-dashboard-generator.js) to download the HTML dashboard.
 
 ## Deploy dashboard (GitHub Pages)
 
