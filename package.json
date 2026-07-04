@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "scrape": "node BeerScraper/scrape-lidl.mjs"
+    "scrape": "node src/beer-scraper/scrape-lidl.mjs"
   },
   "engines": {
     "node": ">=20"
