@@ -1,0 +1,238 @@
+{
+  "url": "https://www.lidl.pl/c/piwa-kraftowe/a10072919",
+  "scrapedAt": "2026-07-04T09:19:06.303Z",
+  "totalCount": 33,
+  "beers": [
+    {
+      "Name": "Zwycięskie Polish IPA",
+      "Brewery": "Pinta",
+      "Packaging": "Bottle",
+      "Price": 9.99,
+      "URL": "https://www.lidl.pl/p/pinta-zwycieskie-polish-ipa/p10035517"
+    },
+    {
+      "Name": "Summer Beer Supply ",
+      "Brewery": "Pinta",
+      "Packaging": "Bottle",
+      "Price": 9.99,
+      "URL": "https://www.lidl.pl/p/pinta-summer-beer-supply/p10035518"
+    },
+    {
+      "Name": "Summer Beer Supply",
+      "Brewery": "Pinta",
+      "Packaging": "Unknown",
+      "Price": 9.99,
+      "URL": "https://www.lidl.pl/p/pinta-summer-beer-supply/p10035519"
+    },
+    {
+      "Name": "Summer Beer Supply",
+      "Brewery": "Pinta",
+      "Packaging": "Bottle",
+      "Price": 9.99,
+      "URL": "https://www.lidl.pl/p/pinta-summer-beer-supply/p10035521"
+    },
+    {
+      "Name": "Classic",
+      "Brewery": "Pinta",
+      "Packaging": "Bottle",
+      "Price": 9.99,
+      "URL": "https://www.lidl.pl/p/pinta-classic/p10035523"
+    },
+    {
+      "Name": "Farm To Glass: Nelson Sauvin",
+      "Brewery": "Funky Fluid",
+      "Packaging": "Can",
+      "Price": 10.99,
+      "URL": "https://www.lidl.pl/p/funky-fluid-farm-to-glass-nelson-sauvin/p10035525"
+    },
+    {
+      "Name": "Farm To Glass: Riwaka",
+      "Brewery": "Funky Fluid",
+      "Packaging": "Can",
+      "Price": 10.99,
+      "URL": "https://www.lidl.pl/p/funky-fluid-farm-to-glass-riwaka/p10035527"
+    },
+    {
+      "Name": "Farm To Glass: Motueka",
+      "Brewery": "Funky Fluid",
+      "Packaging": "Can",
+      "Price": 10.99,
+      "URL": "https://www.lidl.pl/p/funky-fluid-farm-to-glass-motueka/p10035528"
+    },
+    {
+      "Name": "Gelato: Polish Garden",
+      "Brewery": "Funky Fluid",
+      "Packaging": "Can",
+      "Price": 10.99,
+      "URL": "https://www.lidl.pl/p/funky-fluid-gelato-polish-garden/p10035529"
+    },
+    {
+      "Name": "Boarding: Rio De Janeiro",
+      "Brewery": "Funky Fluid",
+      "Packaging": "Can",
+      "Price": 11.99,
+      "URL": "https://www.lidl.pl/p/funky-fluid-boarding-rio-de-janeiro/p10035530"
+    },
+    {
+      "Name": "Boarding: Barcelona",
+      "Brewery": "Funky Fluid",
+      "Packaging": "Can",
+      "Price": 11.99,
+      "URL": "https://www.lidl.pl/p/funky-fluid-boarding-barcelona/p10035531"
+    },
+    {
+      "Name": "Boarding: Palawan",
+      "Brewery": "Funky Fluid",
+      "Packaging": "Can",
+      "Price": 11.99,
+      "URL": "https://www.lidl.pl/p/funky-fluid-boarding-palawan/p10035532"
+    },
+    {
+      "Name": "Gelato: Amore Mio",
+      "Brewery": "Funky Fluid",
+      "Packaging": "Can",
+      "Price": 11.99,
+      "URL": "https://www.lidl.pl/p/funky-fluid-gelato-amore-mio/p10035533"
+    },
+    {
+      "Name": "Palma ",
+      "Brewery": "Cztery Ściany",
+      "Packaging": "Can",
+      "Price": 10.99,
+      "URL": "https://www.lidl.pl/p/cztery-sciany-palma/p10035534"
+    },
+    {
+      "Name": "Sorbet",
+      "Brewery": "Cztery Ściany",
+      "Packaging": "Can",
+      "Price": 10.99,
+      "URL": "https://www.lidl.pl/p/cztery-sciany-sorbet/p10035535"
+    },
+    {
+      "Name": "Rampage ",
+      "Brewery": "Browar Monsters",
+      "Packaging": "Can",
+      "Price": 10.99,
+      "URL": "https://www.lidl.pl/p/browar-monsters-rampage/p10035536"
+    },
+    {
+      "Name": "Evocation",
+      "Brewery": "Browar Monsters",
+      "Packaging": "Can",
+      "Price": 10.99,
+      "URL": "https://www.lidl.pl/p/browar-monsters-evocation/p10035537"
+    },
+    {
+      "Name": "Hiszpańskie Wakacje",
+      "Brewery": "Zakładowy",
+      "Packaging": "Bottle",
+      "Price": 10.99,
+      "URL": "https://www.lidl.pl/p/zakladowy-hiszpanskie-wakacje/p10035538"
+    },
+    {
+      "Name": "Sokowirówka",
+      "Brewery": "Zakładowy",
+      "Packaging": "Bottle",
+      "Price": 10.99,
+      "URL": "https://www.lidl.pl/p/zakladowy-sokowirowka/p10035539"
+    },
+    {
+      "Name": "Tropical Trio",
+      "Brewery": "Stu Mostów",
+      "Packaging": "Bottle",
+      "Price": 9.99,
+      "URL": "https://www.lidl.pl/p/stu-mostow-tropical-trio/p10035540"
+    },
+    {
+      "Name": "Duck's Revenge",
+      "Brewery": "Stu Mostów",
+      "Packaging": "Bottle",
+      "Price": 9.99,
+      "URL": "https://www.lidl.pl/p/stu-mostow-duck-s-revenge/p10035541"
+    },
+    {
+      "Name": "Prankster",
+      "Brewery": "Tankbusters",
+      "Packaging": "Can",
+      "Price": 9.99,
+      "URL": "https://www.lidl.pl/p/tankbusters-prankster/p10035542"
+    },
+    {
+      "Name": "Alone In Space ",
+      "Brewery": "Tankbusters",
+      "Packaging": "Can",
+      "Price": 9.99,
+      "URL": "https://www.lidl.pl/p/tankbusters-alone-in-space/p10035543"
+    },
+    {
+      "Name": "Don't Shoot",
+      "Brewery": "Hop Gang",
+      "Packaging": "Can",
+      "Price": 8.99,
+      "URL": "https://www.lidl.pl/p/hop-gang-don-t-shoot/p10035544"
+    },
+    {
+      "Name": "Vapor",
+      "Brewery": "Hop Gang",
+      "Packaging": "Can",
+      "Price": 8.99,
+      "URL": "https://www.lidl.pl/p/hop-gang-vapor/p10035545"
+    },
+    {
+      "Name": "Wolny Wieczór ",
+      "Brewery": "Za Miastem",
+      "Packaging": "Bottle",
+      "Price": 8.99,
+      "URL": "https://www.lidl.pl/p/za-miastem-wolny-wieczor/p10035546"
+    },
+    {
+      "Name": " Dobry Moment ",
+      "Brewery": "Za Miastem",
+      "Packaging": "Bottle",
+      "Price": 8.99,
+      "URL": "https://www.lidl.pl/p/za-miastem-dobry-moment/p10035547"
+    },
+    {
+      "Name": "Hipis",
+      "Brewery": "Gościszewo",
+      "Packaging": "Bottle",
+      "Price": 6.99,
+      "URL": "https://www.lidl.pl/p/gosciszewo-hipis/p10035548"
+    },
+    {
+      "Name": "Pestka w piwie",
+      "Brewery": "Gościszewo",
+      "Packaging": "Bottle",
+      "Price": 6.99,
+      "URL": "https://www.lidl.pl/p/gosciszewo-pestka-w-piwie/p10035549"
+    },
+    {
+      "Name": "NOLO 3 - WEST COAST IPA Riwaka™ + Citra®",
+      "Brewery": "Nepomucen",
+      "Packaging": "Can",
+      "Price": 8.99,
+      "URL": "https://www.lidl.pl/p/nepomucen-nolo-3-west-coast-ipa-riwaka-citra/p10035550"
+    },
+    {
+      "Name": "NOLO 4 - Hazy IPA Nectaron® x Simcoe® x Superdelic™",
+      "Brewery": "Nepomucen",
+      "Packaging": "Can",
+      "Price": 8.99,
+      "URL": "https://www.lidl.pl/p/nepomucen-nolo-4-hazy-ipa-nectaron-x-simcoe-x-superdelic/p10035551"
+    },
+    {
+      "Name": "IPA Bezalkoholowe",
+      "Brewery": "Amber",
+      "Packaging": "Bottle",
+      "Price": 4.99,
+      "URL": "https://www.lidl.pl/p/amber-ipa-bezalkoholowe/p10035552"
+    },
+    {
+      "Name": "ZANZI Bezalkoholowe",
+      "Brewery": "Amber",
+      "Packaging": "Bottle",
+      "Price": 4.99,
+      "URL": "https://www.lidl.pl/p/amber-zanzi-bezalkoholowe/p10035553"
+    }
+  ]
+}
