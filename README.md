@@ -54,26 +54,26 @@ The scraper reads product data from each tile without scrolling: loaded tiles us
 
 ### GitHub Actions
 
-1. Push this repo to GitHub (optionally commit `package-lock.json` after `npm install` for reproducible CI).
-2. **Actions** → **Scrape Lidl beers** → **Run workflow**.
-3. Paste the Lidl **product listing** URL (craft beers page for the month).
-4. When the run finishes, open the run and download the **lidl-beers-** artifact (`beers.json`; run number is in the artifact name).
-
-## Manual pipeline (browser console)
-
-1. Open the Lidl listing, scroll to the bottom, run [`src/beer-scraper/beer-scraper.js`](src/beer-scraper/beer-scraper.js) in DevTools.
-2. On [Untappd](https://untappd.com) while logged in, run [`src/untappd-researcher/untappd-researcher.js`](src/untappd-researcher/untappd-researcher.js).
-3. Run [`src/beer-dashboard/beer-dashboard-generator.js`](src/beer-dashboard/beer-dashboard-generator.js) to download the HTML dashboard.
+1. Open **Actions** → **Scrape Lidl beers** → **Run workflow**.
+2. Paste the Lidl **product listing** URL (craft beers page for the month) and start the run.
+3. When the run finishes, download the **lidl-beers-** artifact (`beers.json`) or use it as input for the next step.
 
 ## Deploy dashboard (GitHub Pages)
 
 You can publish the static Beer Dashboard to GitHub Pages using the provided workflow.
 
-1. Commit and push these new files to the repository.
+1. Commit the dashboard data file to [src/beer-dashboard/untappd-beers.json](src/beer-dashboard/untappd-beers.json) and push the repository.
 2. In GitHub, open **Actions** → **Deploy Beer Dashboard** → **Run workflow**.
-3. Paste the full `untappd-beers.json` contents into the `json_content` input and run the workflow.
-4. When the workflow completes, open the repository **Pages** section (Settings → Pages) or the workflow summary to find the published URL.
+3. When the workflow completes, open the repository **Pages** section (Settings → Pages) or the workflow summary to find the published URL.
+
+## Manual / alternate workflow
+
+The main scrape and publish steps now run through GitHub Actions. The browser-console path is mostly useful for local debugging or experimentation.
+
+1. Use the CLI scraper locally if you want to generate a JSON file for inspection: `npm run scrape -- --url "https://www.lidl.pl/..." [--out beers.json]`.
+2. On [Untappd](https://untappd.com) while logged in, run [src/untappd-researcher/untappd-researcher.js](src/untappd-researcher/untappd-researcher.js) to enrich the beer data.
+3. Commit the resulting data to [src/beer-dashboard/untappd-beers.json](src/beer-dashboard/untappd-beers.json) and run the deployment workflow to publish the site.
 
 Notes:
-- The workflow writes the pasted JSON into `untappd-beers.json` and deploys the `BeerDashboard/` files as a static site to Pages.
-- If the JSON is very large, consider committing the file to the repo and using the file path instead; the workflow expects pasted JSON by default.
+- The deployment workflow copies the committed JSON from [src/beer-dashboard/untappd-beers.json](src/beer-dashboard/untappd-beers.json) into the generated `site/` folder before publishing.
+- If you update the dashboard data, commit the JSON file in the repository and re-run the deployment workflow.
