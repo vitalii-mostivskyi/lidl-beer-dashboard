@@ -14,19 +14,33 @@ This is **Step 2** of the beer dashboard workflow:
 ## Usage
 
 ### Prerequisites
-- Logged into [Untappd.com](https://untappd.com) in your browser
-- Browser Developer Tools open (F12 or right-click → Inspect)
-- A `beers.json` file loaded in the page (from Step 1)
+- Node.js ≥20
+- A `beers.json` file from Step 1 (scraper output)
+- Internet connection (Untappd searches are performed automatically)
 
 ### Running the Script
 
-1. Open your browser console (DevTools → Console tab)
-2. Paste the entire contents of `untappd-researcher.js`
-3. The script executes immediately, assuming:
-   - `window.lidlBeers` contains the array of beers to search
-   - You're currently on Untappd's search page
-4. Results are stored in `window.untappdBeers` and logged to console
-5. Monitor console output for progress and any issues
+1. Execute via npm:
+   ```bash
+   npm run research -- --input data/samples/2026-06/beers-2026-06-05.json
+   ```
+   Or with custom output path:
+   ```bash
+   npm run research -- --input beers.json --output my-results.json
+   ```
+
+2. The script will:
+   - Load beers from the input JSON file
+   - Open a headless browser (automated)
+   - Search Untappd for each beer
+   - Log progress to console with search attempts and retry information
+   - Write enriched results to the output file
+
+3. Monitor console output for:
+   - Search progress (🔎 SEARCH, ✅ FOUND, ❌ NOT FOUND)
+   - Retry attempts and duplicates skipped
+   - Final summary with timing and match count
+   - Inconclusive matches (multiple results) flagged for review
 
 ---
 
@@ -161,32 +175,47 @@ Total Processed: 160
 
 ## Output Structure
 
-Each matched beer in `window.untappdBeers` contains:
+The script writes results to a JSON file (or prints to console if output path not specified) containing:
 
 ```javascript
 {
-  // Original Lidl data
-  Name: "Polish Hazy IPA",
-  Brewery: "Browar Pinta",
-  Packaging: "500ml",
-  Price: "9.99 zł",
-  
-  // Untappd data (if Found: true)
-  Found: true,
-  Rating: "4.25",            // User rating (0-5 scale)
-  Style: "Hazy IPA",         // Beer style per Untappd
-  Abv: "6.5%",               // Alcohol by volume
-  IsDrunk: false,            // Whether you've logged it on Untappd
-  Link: "https://untappd.com/beer/123456",
-  
-  // Search metadata
-  Brewery: "Browar Pinta",   // As found on Untappd (may differ slightly)
+  "searchedAt": "2026-06-05T12:30:45.123Z",
+  "totalCount": 35,
+  "foundCount": 34,
+  "beers": [
+    {
+      // Original Lidl data
+      "Name": "Polish Hazy IPA",
+      "Brewery": "Browar Pinta",
+      "Packaging": "Can",
+      "Price": 9.99,
+      
+      // Untappd data (if Found: true)
+      "Found": true,
+      "Rating": "4.25",            // User rating (0-5 scale)
+      "Style": "Hazy IPA",         // Beer style per Untappd
+      "Abv": "6.5%",               // Alcohol by volume
+      "Link": "https://untappd.com/beer/123456",
+      
+      // Search metadata
+      "Brewery": "Browar Pinta"    // As found on Untappd (may differ slightly)
+    },
+    {
+      // Unmatched beer - contains only original Lidl data
+      "Name": "Unknown Beer",
+      "Brewery": "Unknown Brewery",
+      "Packaging": "Can",
+      "Price": 8.99,
+      "Found": false
+    }
+  ]
 }
 ```
 
-**For unmatched beers** (`Found: false`):
-- All Untappd fields omitted or defaulted
-- Contains original Lidl data only
+**Key changes from Step 2 browser version:**
+- ❌ **No `IsDrunk` field** (now handled separately via dashboard upload in Step 3)
+- ✅ **File-based I/O** instead of `window.untappdBeers` global
+- ✅ **Automated browser** (no manual DevTools required)
 
 ---
 
@@ -225,48 +254,67 @@ Each matched beer in `window.untappdBeers` contains:
 
 ## Technical Notes
 
-### Browser Compatibility
-- Works in Chrome, Firefox, Safari DevTools console
-- Relies on `fetch()` API and `DOMParser` (modern browser features)
-- Must run on `untappd.com` domain to access search functionality
+### Environment
+- **Execution**: Node.js ≥20 (via npm script)
+- **Browser**: Headless Chromium (via Playwright)
+- **No user interaction required**: Fully automated
 
 ### Error Handling
-- Search failures log as empty result arrays (treated as "not found")
-- Console logging errors are silently caught to prevent script termination
-- Network errors in `performSearch()` return empty arrays (graceful degradation)
+- Search failures return empty result arrays (treated as "not found")
+- Network errors in search gracefully degrade (empty results)
+- Invalid input JSON exits with error message
+- Browser context failures are reported with timeout information
+
+### Performance & Scaling
+- Sequential search execution (one beer at a time)
+- Per-beer query caching to avoid duplicate searches
+- Typical runtime: 30-60 seconds for 35-50 beers (depending on network)
+- Each failed search consumes ~1-2 seconds (timeout/navigation)
 
 ### Rate Limiting
-- No explicit rate limiting; relies on browser's standard fetch behavior
-- Untappd may rate-limit aggressive searches; monitor for slowdowns
-- Per-beer caching minimizes duplicate requests
+- Untappd may rate-limit rapid automated searches
+- If searches slow down mid-run, it's likely rate-limiting
+- Retry mechanism automatically handles transient failures
+- Consider splitting large batches if timeouts occur
 
 ---
 
 ## Integration with Beer Dashboard Workflow
 
 ### Input (Step 1 Output)
+```bash
+beers.json
+├── url: "https://www.lidl.pl/c/piwa-kraftowe/a10072919"
+├── scrapedAt: "2026-06-05T11:44:03.558Z"
+├── totalCount: 35
+└── beers: [
+    { Name, Brewery, Packaging, Price, URL },
+    ...
+  ]
 ```
-beers.json: [
-  { Name, Brewery, Packaging, Price },
-  ...
-]
+
+Pass to Step 2 via:
+```bash
+npm run research -- --input beers.json
 ```
-Loaded as `window.lidlBeers` before script execution.
 
 ### Output (Step 2 Result)
+```bash
+untappd-beers-2026-06-05_123045.json (or custom path)
+├── searchedAt: "2026-06-05T12:30:45.123Z"
+├── totalCount: 35
+├── foundCount: 34
+└── beers: [
+    { ...enriched with Untappd data },
+    ...
+  ]
 ```
-window.untappdBeers: [
-  { ...enriched with Untappd data },
-  ...
-]
-```
-Export or copy from console → use in Step 3 (web deployment).
 
-### Export Steps
-1. Open DevTools → Console
-2. Copy `JSON.stringify(window.untappdBeers, null, 2)` output
-3. Save as `untappd-beers.json`
-4. Pass to Step 3 for dashboard generation
+### Next: Step 3 Integration
+1. Generated `untappd-beers-*.json` is input to web dashboard generation
+2. Dashboard displays enriched beers with Untappd ratings, ABV, style
+3. User uploads separate JSON with their "drunk beers" for status tracking (decoupled from Step 2)
+4. Dashboard merges all data sources for final visualization
 
 ---
 
