@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "scrape": "node src/beer-scraper/scrape-lidl.mjs",
-    "research": "node src/untappd-researcher/untappd-researcher.mjs"
+    "research": "node src/untappd-researcher/untappd-researcher.mjs",
+    "test:research": "node src/untappd-researcher/test-runner.mjs"
   },
   "engines": {
     "node": ">=20"
