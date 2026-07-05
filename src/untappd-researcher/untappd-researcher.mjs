@@ -67,17 +67,20 @@ async function fetchUntappdData(page, beerList) {
 
   for (let i = 0; i < beerList.length; i++) {
     const beer = beerList[i];
-    console.log(`[${i + 1}/${beerList.length}] 🔎 Searching for: ${beer.Name}`);
+    console.log(`[${i + 1}/${beerList.length}] 🔎 Searching for: ${beer.Brewery} ${beer.Name}`);
 
     // RetryStrategy returns { attempts, finalResult, found, hasMultipleMatches, allMatches }
     const searchResult = await retryStrategy.search(beer);
 
     if (searchResult.found) {
       const retryCount = searchResult.attempts.length - 1;
-      console.log(`[${i + 1}/${beerList.length}] ✅ FOUND: ${beer.Name}${retryCount > 0 ? ` (${retryCount} retries)` : ''}`);
+      console.log(`[${i + 1}/${beerList.length}] ✅ FOUND: ${searchResult.finalResult.Brewery} ${searchResult.finalResult.Name}${retryCount > 0 ? ` (${retryCount} retries)` : ''}`);
     } else {
-      console.log(`[${i + 1}/${beerList.length}] ❌ NOT FOUND: ${beer.Name}`);
+      console.log(`[${i + 1}/${beerList.length}] ❌ NOT FOUND: ${beer.Brewery} ${beer.Name}`);
     }
+
+    // new line
+    console.log();
 
     allResults.push(searchResult);
   }

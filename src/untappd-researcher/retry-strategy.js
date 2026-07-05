@@ -127,6 +127,7 @@ export class RetryStrategy {
         Link: first.nameHref ? `https://untappd.com${first.nameHref}` : "",
         Found: true
       },
+      originalBeer: originalBeer,
       found: true,
       hasMultipleMatches: items.length > 1,
       allMatches: items
