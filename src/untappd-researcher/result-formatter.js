@@ -23,7 +23,7 @@ export class ResultFormatter {
     const inconclusiveMatches = allSearchResults
       .filter(r => r.hasMultipleMatches && r.found)
       .map(r => ({
-        originalBeer: this._findOriginalBeer(r),
+        originalBeer: r.originalBeer,
         finalResult: r.finalResult,
         allMatches: r.allMatches
       }));
@@ -35,26 +35,7 @@ export class ResultFormatter {
         beer: r.finalResult,
         attempts: r.attempts
       }));
-
-    // Print inconclusive matches section
-    if (inconclusiveMatches.length > 0) {
-      output += "\n--- INCONCLUSIVE MATCHES (Multiple Results) ---\n";
-      inconclusiveMatches.forEach(entry => {
-        const matches = entry.allMatches || [];
-        output += `${entry.finalResult.Brewery} - ${entry.finalResult.Name}`;
-        if (matches.length > 0) {
-          output += ` (${matches.length} matches):\n`;
-          matches.forEach(m => {
-            const breweryName = m.brewery || 'N/A';
-            const beerName = m.name || 'N/A';
-            output += `   - ${breweryName} - ${beerName}\n`;
-          });
-        } else {
-          output += "\n";
-        }
-      });
-    }
-
+      
     // Print not-found beers section with their attempted queries
     if (notFoundBeers.length > 0) {
       output += "\n--- NOT FOUND BEERS ---\n";
@@ -68,25 +49,28 @@ export class ResultFormatter {
             output += `     ${attemptIndex + 1}. ${attempt.query}\n`;
           });
         }
+      });
+    }
 
-        output += `   Packaging: ${beer.Packaging || 'N/A'}\n`;
-        output += `   Price: ${beer.Price || 'N/A'}\n`;
+    // Print inconclusive matches section
+    if (inconclusiveMatches.length > 0) {
+      output += "\n--- INCONCLUSIVE MATCHES (Multiple Results) ---\n";
+      inconclusiveMatches.forEach(entry => {
+        const matches = entry.allMatches || [];
+        output += `${entry.originalBeer.Brewery} - ${entry.originalBeer.Name}`;
+        if (matches.length > 0) {
+          output += ` (${matches.length} matches):\n`;
+          matches.forEach(m => {
+            const breweryName = m.brewery || 'N/A';
+            const beerName = m.name || 'N/A';
+            output += `   - ${breweryName} - ${beerName}\n`;
+          });
+        } else {
+          output += "\n";
+        }
       });
     }
 
     return output;
-  }
-
-  /**
-   * Helper: Extract original beer object from result
-   * Result object has Name, Brewery, Packaging, Price from either original beer or found result
-   */
-  _findOriginalBeer(result) {
-    return {
-      Brewery: result.finalResult.Brewery,
-      Name: result.finalResult.Name,
-      Packaging: result.finalResult.Packaging,
-      Price: result.finalResult.Price
-    };
   }
 }
